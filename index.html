@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header id="greeting-section">
+    <h2>Greeting</h2>
+    <button id="theme-toggle-btn">🌙 Dark Mode</button>
+    <h1 id="greeting-text"></h1>
+    <p id="current-time"></p>
+    <p id="current-date"></p>
+    <div id="name-form">
+      <input type="text" id="name-input" placeholder="Masukkan nama kamu">
+      <button id="save-name-btn">Simpan Nama</button>
+    </div>
+  </header>
+
+  <section id="timer-section">
+    <h2>Focus Timer</h2>
+    <p id="timer-display">25:00</p>
+    <button id="start-btn">Start</button>
+    <button id="stop-btn">Stop</button>
+    <button id="reset-btn">Reset</button>
+    <div id="duration-form">
+      <input type="number" id="custom-duration-input" placeholder="Menit" min="1" max="180">
+      <button id="set-duration-btn">Atur Durasi</button>
+    </div>
+  </section>
+
+  <section id="todo-section">
+    <h2>To-Do List</h2>
+    <input type="text" id="task-input" placeholder="Tambah task baru...">
+    <button id="add-task-btn">Tambah</button>
+    <ul id="task-list"></ul>
+  </section>
+
+  <section id="quicklinks-section">
+    <h2>Quick Links</h2>
+    <input type="text" id="link-name-input" placeholder="Nama website (contoh: YouTube)">
+    <input type="text" id="link-url-input" placeholder="URL (contoh: https://youtube.com)">
+    <button id="add-link-btn">Tambah Link</button>
+    <div id="links-list"></div>
+  </section>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

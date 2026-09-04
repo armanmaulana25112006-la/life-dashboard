@@ -1,0 +1,411 @@
+/* =========================================
+   CSS Custom Properties (Design Tokens)
+   ========================================= */
+:root {
+  /* Accent */
+  --color-accent:     #4f7ef8;
+  --color-accent-dark:#3a63d4;
+
+  /* Light mode surface colours (defaults) */
+  --color-bg:         #f0f2f7;
+  --color-surface:    #ffffff;
+  --color-text:       #1a1d2e;
+  --color-text-muted: #6b7280;
+  --color-border:     #e5e7eb;
+
+  --radius:    12px;
+  --shadow:    0 2px 8px rgba(0, 0, 0, 0.07);
+
+  --space-xs:  8px;
+  --space-sm:  16px;
+  --space-md:  24px;
+  --space-lg:  32px;
+  --space-xl:  48px;
+
+  --font-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               Helvetica, Arial, sans-serif;
+}
+
+/* =========================================
+   Dark Mode — override only the colour tokens.
+   Every rule that already uses var(--color-*)
+   automatically picks up the new values; no
+   element-level overrides needed.
+   ========================================= */
+body.dark-mode {
+  --color-bg:         #0f1117;
+  --color-surface:    #1e2130;
+  --color-text:       #e8eaf0;
+  --color-text-muted: #9ca3af;
+  --color-border:     #2e3347;
+  --shadow:           0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* =========================================
+   Reset & Base
+   ========================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-base);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  padding: var(--space-lg) var(--space-md);
+  min-height: 100vh;
+}
+
+/* =========================================
+   Layout — main grid
+   ========================================= */
+body > header,
+body > section {
+  background-color: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+}
+
+/* Stack all cards vertically with consistent gap */
+body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-width: 860px;
+  margin-inline: auto;
+}
+
+/* =========================================
+   Typography — headings inside each card
+   ========================================= */
+body > header h2,
+body > section h2 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: var(--space-xs);
+  margin-bottom: var(--space-sm);
+  display: inline-block;
+}
+
+/* =========================================
+   Section: Greeting — slightly more prominent
+   ========================================= */
+#greeting-section {
+  background-color: var(--color-accent);
+  border-color: transparent;
+  color: #ffffff;
+}
+
+#greeting-section h2 {
+  color: rgba(255, 255, 255, 0.75);
+  border-bottom-color: rgba(255, 255, 255, 0.4);
+  font-size: 0.7rem;
+}
+
+/* Placeholder min-height so cards feel substantial before JS fills them */
+#greeting-section  { min-height: 100px; }
+#timer-section     { min-height: 120px; }
+#todo-section      { min-height: 160px; }
+#quicklinks-section{ min-height: 100px; }
+
+/* =========================================
+   Responsive — two-column layout on wider screens
+   ========================================= */
+@media (min-width: 640px) {
+  body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    align-items: start;
+  }
+
+  /* Greeting spans full width at the top */
+  #greeting-section {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 860px) {
+  body {
+    padding: var(--space-xl) var(--space-lg);
+  }
+}
+
+/* =========================================
+   Theme Toggle Button
+   ========================================= */
+#theme-toggle-btn {
+  display: inline-block;
+  margin-bottom: var(--space-sm);
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  font-family: var(--font-base);
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#theme-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+/* =========================================
+   Global Input & Button Base
+   Consistent padding so interactive elements
+   never feel cramped regardless of section.
+   ========================================= */
+input[type="text"],
+input[type="number"] {
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  font-family: var(--font-base);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: var(--color-accent);
+}
+
+/* All buttons (except the theme toggle which has its own rule) */
+button:not(#theme-toggle-btn) {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  font-family: var(--font-base);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+button:not(#theme-toggle-btn):hover {
+  background-color: var(--color-bg);
+  border-color: var(--color-accent);
+}
+
+/* =========================================
+   Inline form rows — input + button side by side
+   Covers: name-form, duration-form, task add row,
+   link add rows.
+   ========================================= */
+#name-form,
+#duration-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+}
+
+/* Task add row (input + button sit directly inside #todo-section) */
+#task-input {
+  flex: 1 1 160px;
+  margin-top: var(--space-sm);
+  margin-right: var(--space-xs);
+}
+
+#add-task-btn {
+  margin-top: var(--space-sm);
+}
+
+/* Link add rows */
+#link-name-input,
+#link-url-input {
+  display: block;
+  width: 100%;
+  margin-top: var(--space-xs);
+}
+
+#add-link-btn {
+  margin-top: var(--space-xs);
+}
+
+/* =========================================
+   Focus Timer — controls row
+   ========================================= */
+#timer-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+#timer-display {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-xs);
+}
+
+/* Group Start/Stop/Reset on one line */
+#start-btn,
+#stop-btn,
+#reset-btn {
+  display: inline-block;
+  margin-right: var(--space-xs);
+}
+
+#duration-form {
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-border);
+}
+
+#custom-duration-input {
+  width: 90px;
+}
+
+/* =========================================
+   Greeting Section — inner spacing
+   ========================================= */
+#greeting-text {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+#current-time {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+#current-date {
+  font-size: 0.9rem;
+  opacity: 0.75;
+  margin-bottom: var(--space-sm);
+}
+
+#name-form input[type="text"] {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+}
+
+#name-form input[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+#name-form input[type="text"]:focus {
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+#name-form button {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+}
+
+#name-form button:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+}
+
+/* =========================================
+   To-Do List — task items
+   ========================================= */
+#task-list {
+  list-style: none;
+  margin-top: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+#task-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+/* Checkbox — give it breathing room from the text */
+#task-list li input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--color-accent);
+  margin: 0;
+  padding: 0;
+}
+
+/* Task text fills available space, pushing buttons to the right */
+#task-list li span {
+  flex: 1;
+  font-size: 0.95rem;
+  word-break: break-word;
+}
+
+/* Inline edit input inside a task row */
+#task-list li input[type="text"] {
+  flex: 1;
+  margin: 0;
+  padding: 4px 8px;
+  font-size: 0.95rem;
+}
+
+/* Edit & Delete buttons in task rows — smaller than main buttons */
+#task-list li button {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+}
+
+/* =========================================
+   Quick Links — link items
+   ========================================= */
+#links-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+}
+
+.link-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 4px 4px 4px 12px;
+}
+
+.link-item a {
+  font-size: 0.9rem;
+  color: var(--color-accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.link-item a:hover {
+  text-decoration: underline;
+}
+
+/* Hapus button inside each link chip */
+.link-item button {
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  border-radius: 20px;
+}
